@@ -1,0 +1,22 @@
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        
+        // Android support
+        if (!requested.name.startsWith("multidex")) {
+            if (requested.group == 'com.android.support') {
+                details.useVersion '25.+'
+            }
+
+            // Google play services
+            if (requested.group == 'com.google.android.gms') {
+                details.useVersion '11.+'
+            }
+        }
+
+        // TODO: Facebook x BarcodeScanner multidex
+        if (requested.group == "com.facebook.android") {
+            details.useVersion "4.25.0"
+        }
+    }
+}
